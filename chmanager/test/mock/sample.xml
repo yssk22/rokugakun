@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tv SYSTEM "xmltv.dtd">
+
+<tv generator-info-name="tsEPG2xml" generator-info-url="http://localhost/">
+  <channel id="c27">
+    <display-name lang="ja_JP">ＮＨＫ総合１・東京</display-name>
+  </channel>
+  <programme start="20120626210000 +0900" stop="20120626220000 +0900" channel="c27">
+    <title lang="ja_JP">【二】【字】ニュースウオッチ９　▽消費増税法案が衆議院通過▽民主党・造反議員５７人の衝撃</title>
+    <desc lang="ja_JP">日本はどこへ行く…▽消費増税法案が衆議院通過▽民主党の造反議員は５７人▽処分はどうなる？▽小沢一郎氏はどう動く？▽テニス・ウィンブルドン選手権・錦織選手初戦速報</desc>
+    <category lang="ja_JP">ニュース・報道</category>
+    <category lang="en">news</category>
+  </programme>
+</tv>

@@ -1,0 +1,25 @@
+# Rokuga-kun Channel Updater
+
+
+# Web API
+
+POST /jobs/
+
+  Force to execute the channel update job.
+
+GET /jobs/
+
+  Returns the list update job status
+
+GET /channels/
+
+  Returns the list of available channels 
+
+GET /channels/{x}
+
+  Returns the program list of channel {x}
+
+GET /channels/{x}/{yyyy}/{mm}/{dd}
+
+  Returns the program list of channel {x} from {yyyy}/{mm}/{dd} 04:00 to {yyyy}/{mm}/{dd+1} 03:59
+

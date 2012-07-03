@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function error {
+  echo "recpt1 --b25 27 10 *.ts" 1>&2
+  exit 1
+}
+
+if [ "$1" != "--b25" ]; then
+  error
+fi
+
+if [ "$2" != "27" ]; then
+  error
+fi
+
+if [ "$3" != "10" ]; then
+  error
+fi
+
+if [ "$4" == "" ]; then
+  error
+else
+  echo "SUCCESS" > "$4"
+fi
+
+exit 0

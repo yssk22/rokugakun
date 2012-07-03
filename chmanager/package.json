@@ -1,0 +1,17 @@
+{
+    "name": "rokugakun-chmanager",
+    "private": true,
+    "main": "app.js",
+    "version": "0.1.0",
+    "dependencies": {
+        "express": "2.5.11",
+        "sax": "0.4.0",
+        "log4js": "0.5.0",
+        "async": "0.1.22",
+        "mongodb": "1.0.2"
+    },
+    "devDependencies": {
+        "mocha": "1.2.1",
+        "chai": "1.0.4"
+    }
+}
