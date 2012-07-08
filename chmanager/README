@@ -1,28 +1,31 @@
-# Rokuga-kun Channel Updater
+# Rokuga-kun Channel Manager
+
+録画君の番組表データベース管理プログラム
 
 
 # Web API
+
 GET /
 
-  Returns the server info
+  サーバー情報を返します
 
 POST /jobs/
 
-  Force to execute the channel update job.
+  データベース更新ジョブを実行します。
 
 GET /jobs/
 
-  Returns the list update job status
+  登録されたデータベース更新ジョブのステータス一覧を返します。
 
 GET /channels/
 
-  Returns the list of available channels 
+  利用可能なチャンネル一覧を返します。
 
 GET /programs/{cid}
 
-  Returns the program list of channel {cid}. This endpoint return the same result as /programs/{cid}/{current-yyyy}/{current-mm}/{current-dd}
+  チャンネル {cid} の番組一覧を返します。このエンドポイントは /programs/{cid}/{current-yyyy}/{current-mm}/{current-dd} と同じ結果を返します。
 
 GET /programs/{cid}/{yyyy}/{mm}/{dd}
 
-  Returns the program list of channel {cid} from {yyyy}/{mm}/{dd} 04:00 to {yyyy}/{mm}/{dd+1} 03:59
+  チャンネル {cid} の {yyyy}/{mm}/{dd} 04:00 から次の日の03:59までの番組一覧を返します。
 
