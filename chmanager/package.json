@@ -11,6 +11,7 @@
         "mongodb": "1.0.2"
     },
     "devDependencies": {
+        "superagent": "0.5.0",
         "mocha": "1.2.1",
         "chai": "1.0.4"
     }
