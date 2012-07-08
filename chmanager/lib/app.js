@@ -7,6 +7,7 @@ var query = require('./query');
 var pkgInfo = require('../package.json');
 
 app.configure(function(){
+  app.enable("jsonp callback");
   app.use(log4js.connectLogger(log4js.getLogger('access'), { level: log4js.levels.INFO }));
 });
 
