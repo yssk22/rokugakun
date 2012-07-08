@@ -5,7 +5,7 @@ var DB_CONNECTION_POOL_SIZE = parseInt(process.env['DB_CONNECTION_POOL_SIZE'] ||
 var mongo = null;
 if(process.env.VCAP_SERVICES){
   var env = JSON.parse(process.env.VCAP_SERVICES);
-  mongo = env['mongodb-1.8'][0].credentials;
+  mongo = (env['mongodb-1.8'] || env['mongodb-2.0'])[0].credentials;
 }
 if( mongo == null ){
   mongo = {
