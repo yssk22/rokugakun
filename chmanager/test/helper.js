@@ -27,7 +27,6 @@ exports.setup = function(done){
         };
       })(i);
     }
-    console.log(funs);
     async.parallel(funs, function(err, results){
       fixtures = results;
       done();
@@ -65,3 +64,18 @@ exports.loadFixture = function(name, callback){
     }
   });
 };
+
+var request = require('superagent');
+exports.http = {};
+exports.http.SERVER_PORT = process.env.TEST_PORT || 13000;
+exports.http.startServer = function(server, done){
+  server.listen(exports.http.SERVER_PORT, done);
+}
+
+var methods = ["get", "post", "put", "del"];
+methods.forEach(function(method){
+  exports.http[method] = function(_path){
+    var url = "http://" + path.join("localhost:" + exports.http.SERVER_PORT, _path);
+    return request(url);
+  };
+});

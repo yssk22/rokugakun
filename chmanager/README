@@ -2,6 +2,9 @@
 
 
 # Web API
+GET /
+
+  Returns the server info
 
 POST /jobs/
 

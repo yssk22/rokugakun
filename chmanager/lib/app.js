@@ -4,6 +4,14 @@ var logger = require('log4js').getLogger();
 var chconf = require('./chconf');
 var updater = require('./updater');
 var query = require('./query');
+var pkgInfo = require('../package.json');
+
+app.get('/', function(req, res){
+  res.json({
+    name: pkgInfo.name,
+    version: pkgInfo.version
+  });
+});
 
 app.get('/jobs/', function(req, res){
   updater.getStatsHistory({}, function(err, history){
@@ -41,7 +49,7 @@ app.get('/programs/:cid', function(req, res){
 
 app.get('/programs/:cid/:yyyy/:mm/:dd', function(req, res){
   var cid = req.params.cid;
-  var t   = new Date(req.params.yyyy, req.params.mm, req.params.dd);
+  var t   = new Date(req.params.yyyy, parseInt(req.params.mm) -1, req.params.dd);
   var options = {};  // TODO: more detailed filter (such as time)
 
   query.getProgramListByDate(cid, t, function(err, list){
@@ -51,7 +59,7 @@ app.get('/programs/:cid/:yyyy/:mm/:dd', function(req, res){
 
 // parameter validations
 app.param('cid', function(req, res, next, cid){
-  if( chconf(req.params.cid) ){
+  if( chconf[req.params.cid] ){
     next();
   }else{
     res.json({
