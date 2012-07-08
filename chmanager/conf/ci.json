@@ -1,0 +1,9 @@
+{
+    "log4js": {
+        "appenders": [
+            { "type": "console" }
+        ],
+        "levels": {},
+        "globalLogLevel": "OFF"
+    }
+}
