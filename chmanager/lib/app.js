@@ -1,10 +1,14 @@
 var express = require('express');
 var app = express.createServer();
-var logger = require('log4js').getLogger();
+var log4js = require('log4js');
 var chconf = require('./chconf');
 var updater = require('./updater');
 var query = require('./query');
 var pkgInfo = require('../package.json');
+
+app.configure(function(){
+  app.use(log4js.connectLogger(log4js.getLogger('access'), { level: log4js.levels.INFO }));
+});
 
 app.get('/', function(req, res){
   res.json({
