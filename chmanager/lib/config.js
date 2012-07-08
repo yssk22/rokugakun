@@ -13,7 +13,9 @@ if( envName == null ){
 
 var configFile = path.join(__dirname, '../conf', envName + '.json');
 
-if( !fs.existsSync(configFile ) ){
+// existsSync compatibility
+var existsSync = fs.existsSync || path.existsSync;
+if( !existsSync(configFile ) ){
   configFile = path.join(__dirname, '../conf', 'default.json');
 }
 
