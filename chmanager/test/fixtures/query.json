@@ -1,0 +1,32 @@
+[
+{ 
+    "_id"   : "1", 
+    "id"    : "c10-20120101210000-20120101220000", 
+    "start" : "2012-01-01T12:00:00Z", 
+    "stop"  : "2012-01-01T13:00:00Z", 
+    "title" : "Test Title 1",
+    "description": "This is a test title 1",
+    "category" : "news",
+    "cid"   : "c10"
+},
+{ 
+    "_id"   : "2", 
+    "id"    : "c10-20120101210000-20120101220000", 
+    "start" : "2012-01-01T13:00:00Z", 
+    "stop"  : "2012-01-01T14:00:00Z", 
+    "title" : "Test Title 2",
+    "description": "This is a test title 2",
+    "category" : "news",
+    "cid"   : "c10"
+},
+{ 
+    "_id"   : "3", 
+    "id"    : "c10-20120102210000-20120102220000", 
+    "start" : "2012-01-02T13:00:00Z", 
+    "stop"  : "2012-01-02T14:00:00Z", 
+    "title" : "Test Title 3",
+    "description": "This is a test title 3",
+    "category" : "news",
+    "cid"   : "c10"
+}
+]

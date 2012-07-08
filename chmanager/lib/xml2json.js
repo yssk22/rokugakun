@@ -35,7 +35,8 @@ module.exports = function(xml, callback){
              node.attributes.START.split(' ')[0],
              node.attributes.STOP.split(' ')[0]].join('-'),
         start: parseDate(node.attributes.START),
-        stop:  parseDate(node.attributes.STOP)
+        stop:  parseDate(node.attributes.STOP),
+        cid: currentChannel.id
       };
       channels[node.attributes.CHANNEL].programs.push(currentProgram);
       break;

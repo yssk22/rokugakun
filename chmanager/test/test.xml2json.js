@@ -36,6 +36,8 @@ describe('xml2json', function(){
         assert.typeOf(program.start,    'Date');
         assert.typeOf(program.stop,     'Date');
         assert.typeOf(program.category, 'string');
+        assert.typeOf(program.cid,      'string');
+        assert.equal(program.cid,       ch.id);
       }
       done();
     });

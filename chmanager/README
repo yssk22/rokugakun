@@ -15,11 +15,11 @@ GET /channels/
 
   Returns the list of available channels 
 
-GET /channels/{x}
+GET /programs/{cid}
 
-  Returns the program list of channel {x}
+  Returns the program list of channel {cid}. This endpoint return the same result as /programs/{cid}/{current-yyyy}/{current-mm}/{current-dd}
 
-GET /channels/{x}/{yyyy}/{mm}/{dd}
+GET /programs/{cid}/{yyyy}/{mm}/{dd}
 
-  Returns the program list of channel {x} from {yyyy}/{mm}/{dd} 04:00 to {yyyy}/{mm}/{dd+1} 03:59
+  Returns the program list of channel {cid} from {yyyy}/{mm}/{dd} 04:00 to {yyyy}/{mm}/{dd+1} 03:59
 
