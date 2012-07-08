@@ -18,3 +18,4 @@ if( !fs.existsSync(configFile ) ){
 }
 
 module.exports = require(configFile);
+module.exports.configSrc = path.basename(configFile);
