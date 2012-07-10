@@ -49,7 +49,7 @@ describe('app:', function(){
       it('should returns the program list', function(done){
         http.get('/programs/c20/2012/01/01').end(function(res){
           assert.typeOf(res.body, 'Array');
-          assert.equal(res.body.length, 2);
+          assert.equal(res.body.length, 3);
           done();
         });
       });

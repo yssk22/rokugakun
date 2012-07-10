@@ -53,10 +53,13 @@ exports.getProgramListByDate = function(cid, t, options, callback){
   connect(function(err, collection){
     queryWithBenchmark(
       'getProgramListByDate',
-      collection.find({cid: cid,
-                       start: {$gte: start},
-                       stop:  {$lte: stop}
-                      }).sort(), callback);
+      collection.find({
+        $and  : [
+          { cid   : cid },
+          { stop  : { $gt: start} },
+          { start : { $lte: stop} }
+        ]
+      }).sort({"start": 1}), callback);
   });
 };
 

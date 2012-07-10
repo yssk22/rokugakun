@@ -28,5 +28,15 @@
     "description": "This is a test title 3",
     "category" : "news",
     "cid"   : "c20"
+},
+{ 
+    "_id"   : "4", 
+    "id"    : "c20-20120101180000-20120101200000", 
+    "start" : "2012-01-01T11:00:00Z", 
+    "stop"  : "2012-01-01T12:00:00Z", 
+    "title" : "Test Title 4",
+    "description": "This is a test title 4",
+    "category" : "news",
+    "cid"   : "c20"
 }
 ]
