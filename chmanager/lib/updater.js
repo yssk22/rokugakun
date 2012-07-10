@@ -99,10 +99,12 @@ module.exports = {
                      chkey, err.toString(), timeToTake);
         callback(err, task);
       }else{
+        var lastUpdate = new Date();
         task.error   = null;
         task.updates = json[chkey].programs.length;
         var q = async.queue(function(arg, callback){
           var doc = arg.doc;
+          doc.lastUpdate = lastUpdate;
           collection.update({id: doc.id}, doc, {safe:true, upsert:true}, function(err){
             if( err ){
               logger.error("Failed to update program: %s", doc.id);
@@ -114,8 +116,17 @@ module.exports = {
         });
         q.concurrency = database.poolSize;
         q.drain = function(){
-          logger.info("Updated %s channel (%s sec)", chkey, timeToTake);
-          callback(err, task);
+          // cleanup programs not updated in this transcation.
+          collection.remove({$and : [
+            { $cid: chkey },
+            { $lastUpdate: {$ne : lastUpdate} }
+          ]}, function(err){
+            if( err ){
+              logger.warn("[%s] Could not cleanup old programs", chkey);
+            }
+            logger.info("Updated %s channel (%s sec)", chkey, timeToTake);
+            callback(err, task);
+          });
         };
         // register all programm
         for(var i in docs){
