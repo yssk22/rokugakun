@@ -120,7 +120,7 @@ module.exports = {
           collection.remove({$and : [
             { $cid: chkey },
             { $lastUpdate: {$ne : lastUpdate} }
-          ]}, function(err){
+          ]}, function(err, result){
             if( err ){
               logger.warn("[%s] Could not cleanup old programs", chkey);
             }
