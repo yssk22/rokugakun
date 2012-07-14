@@ -12,6 +12,7 @@
     },
     "devDependencies": {
         "superagent": "0.5.0",
+        "glob": "3.1.10",
         "mocha": "1.2.1",
         "chai": "1.0.4"
     }
