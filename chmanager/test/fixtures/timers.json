@@ -1,0 +1,12 @@
+[
+{ 
+    "_id"   : "1", 
+    "start" : "2012-01-01T12:00:00Z", 
+    "stop"  : "2012-01-01T13:00:00Z", 
+    "title" : "Test Title 1",
+    "description": "This is a test title 1",
+    "status" : "scheduled",
+    "cid"    : "c20",
+    "pid"    : "c20-20120101210000-20120101220000"
+}
+]
