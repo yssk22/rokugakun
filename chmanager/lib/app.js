@@ -40,6 +40,9 @@ app.post('/jobs/', function(req, res){
 });
 
 app.get('/channels/', function(req, res){
+  for(var cid in chconf){
+    chconf[cid].cid = cid;
+  }
   res.json(chconf);
 });
 
