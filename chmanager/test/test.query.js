@@ -47,7 +47,7 @@ describe('query:', function(){
 
   describe('getTimerListByDate', function(){
     it('should returns the list of timers ordered by "start"', function(done){
-      var t = new Date(2012, 0, 1); // 2012/01/01
+      var t = new Date(2038, 0, 1); // 2012/01/01
       query.getTimerListByDate(t, function(err, list){
         assert.isNotNull(list);
         assert.equal(list.length, 1);
