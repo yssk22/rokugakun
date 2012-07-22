@@ -65,6 +65,12 @@ exports.loadFixture = function(name, collection, callback){
   });
 };
 
+exports.dropCollection = function(collection, callback){
+  database.collection(collection, function(err, collection){
+    collection.drop(callback);
+  });
+}
+
 var request = require('superagent');
 exports.http = {};
 exports.http.SERVER_PORT = process.env.TEST_PORT || 13000;
