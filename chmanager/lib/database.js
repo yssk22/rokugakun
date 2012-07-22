@@ -36,38 +36,55 @@ function fireCallbacks(err){
   }
 }
 
-module.exports = {
-  poolSize: server.poolSize,
-  connect: function(callback){
-    if( server.connected ){
-      return callback(null, db);
-    }
-    waits.push(callback);
-    if( openCalled ){
-      return;
-    }
 
-    openCalled = true;
-    return db.open(function(err, success){
-      if( err ){
-        openCalled = false;
-        fireCallbacks(err);
-      }else{
-        if( authRequired ){
-          db.authenticate(mongo.username, mongo.password, function(err, success){
-            var cb = null;
-            if( success ){
-              authRequired = false;
-            }else{
-              db.close();
-              logger.error('Could not authenticate mongodb with ' + mongo.username);
-            }
-            fireCallbacks(err);
-          });
-        }else{
-          fireCallbacks(err);
-        }
-      }
-    });
+
+
+exports.poolSize = server.poolSize;
+exports.connect = function connect(callback){
+  if( server.connected ){
+    return callback(null, db);
   }
+  waits.push(callback);
+  if( openCalled ){
+    return;
+  }
+
+  openCalled = true;
+  return db.open(function(err, success){
+    if( err ){
+      openCalled = false;
+      fireCallbacks(err);
+    }else{
+      if( authRequired ){
+        db.authenticate(mongo.username, mongo.password, function(err, success){
+          var cb = null;
+          if( success ){
+            authRequired = false;
+          }else{
+            db.close();
+            logger.error('Could not authenticate mongodb with ' + mongo.username);
+          }
+          fireCallbacks(err);
+        });
+      }else{
+        fireCallbacks(err);
+      }
+    }
+  });
+};
+
+exports.collection = function(collectionName, callback){
+  exports.connect(function(err, conn){
+    if( err ){
+      callback(err);
+    }else{
+      conn.collection(collectionName, function(err, collection){
+        if( err ){
+          callback(err);
+        }else{
+          callback(null, collection);
+        }
+      });
+    }
+  });
 };
