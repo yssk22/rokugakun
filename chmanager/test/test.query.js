@@ -6,7 +6,9 @@ describe('query:', function(){
   var docs = null;
   before(function(done){
     helper.setup(function(){
-      helper.loadFixture('query.json', done);
+      helper.loadFixture('programs.json', 'programs', function(){
+        helper.loadFixture('timers.json', 'timers', done);
+      });
     });
   });
 
@@ -41,6 +43,19 @@ describe('query:', function(){
         done();
       });
     });
+  });
 
+  describe('getTimerListByDate', function(){
+    it('should returns the list of timers ordered by "start"', function(done){
+      var t = new Date(2012, 0, 1); // 2012/01/01
+      query.getTimerListByDate(t, function(err, list){
+        assert.isNotNull(list);
+        assert.equal(list.length, 1);
+        for(var i=0; i<list.length-1; i++){
+          assert.ok(list[i].start.getTime() < list[i+1].start.getTime());
+        }
+        done();
+      });
+    });
   });
 });

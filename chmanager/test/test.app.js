@@ -24,7 +24,7 @@ describe('app:', function(){
 
   describe('program list', function(){
     before(function(done){
-      helper.loadFixture('query.json', done);
+      helper.loadFixture('programs.json', 'programs', done);
     });
 
     describe('GET /programs/{cid}', function(){

@@ -34,7 +34,7 @@ exports.setup = function(done){
   });
 };
 
-exports.loadFixture = function(name, callback){
+exports.loadFixture = function(name, collection, callback){
   if( !fixtures || !fixtures[name] ){
     throw new Error('Failed to load fixture: Do you use helper.setup before load fixtures?');
   }
@@ -42,7 +42,7 @@ exports.loadFixture = function(name, callback){
     if( err ){
       throw err;
     }else{
-      conn.collection('programs', function(err, collection){
+      conn.collection(collection, function(err, collection){
         if( err ){
           throw err;
         }else{
