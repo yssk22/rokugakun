@@ -58,6 +58,9 @@ describe('query:', function(){
       t.save(function(err, result){
         assert.isNull(err);
         assert.isNotNull(result);
+        assert.equal(result.cid, "c27");
+        assert.equal(result.pid, "c27-20380101220000-20380101230000");
+        assert.equal(result.status, "scheduled");
         done();
       });
 

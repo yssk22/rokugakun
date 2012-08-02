@@ -95,6 +95,20 @@ describe('app:', function(){
             done();
           });
       });
+      it('should save and returns the timer record', function(done){
+        http.post('/timers/')
+          .send({
+            cid: "c27",
+            pid: "c27-20380101220000-20380101230000"
+          })
+          .end(function(res){
+            assert.equal(res.statusCode, 200);
+            assert.equal(res.body.cid, "c27");
+            assert.equal(res.body.pid, "c27-20380101220000-20380101230000");
+            assert.equal(res.body.status, "scheduled");
+            done();
+          });
+      });
     });
   });
 });

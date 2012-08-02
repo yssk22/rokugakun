@@ -42,7 +42,11 @@ Timer.prototype.save = function(callback){
                 }else{
                   doc.status = 'scheduled';
                   collection.insert(doc, {safe:true}, function(err, doc){
-                    callback(err, doc);
+                    if( err ){
+                      callback(err, doc);
+                    }else{
+                      callback(err, doc[0]);
+                    }
                   });
                 }
               }
