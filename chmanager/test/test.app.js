@@ -75,5 +75,26 @@ describe('app:', function(){
         });
       });
     });
+  }); // program list
+
+  describe('timer list', function(){
+    before(function(done){
+      helper.loadFixture('programs.json', 'programs', function(){
+        helper.dropCollection('timers', function(){
+          helper.loadFixture('timers.json', 'timers', done);
+        });
+      });
+    });
+
+    describe('POST /timers/', function(){
+      it('should return 400 if invalid pid passed', function(done){
+        http.post('/timers/')
+          .send({cid: 'a', pid: 'b'})
+          .end(function(res){
+            assert.equal(res.statusCode, 400);
+            done();
+          });
+      });
+    });
   });
 });

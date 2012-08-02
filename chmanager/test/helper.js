@@ -82,6 +82,6 @@ var methods = ["get", "post", "put", "del"];
 methods.forEach(function(method){
   exports.http[method] = function(_path){
     var url = "http://" + path.join("localhost:" + exports.http.SERVER_PORT, _path);
-    return request(url);
+    return request[method](url);
   };
 });

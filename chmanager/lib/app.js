@@ -1,36 +1,60 @@
 var express = require('express');
-var app = express.createServer();
-var log4js = require('log4js');
-var chconf = require('./chconf');
+var log4js  = require('log4js');
+var chconf  = require('./chconf');
 var updater = require('./updater');
-var query = require('./query');
+var timer   = require('./timer');
+var query   = require('./query');
 var pkgInfo = require('../package.json');
 
+var app     = express.createServer();
+var logger = log4js.getLogger('server');
+
 app.configure(function(){
+
   app.enable("jsonp callback");
+  app.use(express.bodyParser());
   app.use(log4js.connectLogger(log4js.getLogger('access'), { level: log4js.levels.INFO }));
+  app.use(app.router);
+  app.use(function errorHandler(err, req, res, next){
+    // known errors handled
+    if( err.stack ){
+      logger.fatal(err.stack);
+      res.send(500);
+    }else{
+      switch(err.error){
+      case "validation_failed":
+        logger.debug('validation_failed: ' + JSON.stringify(req.body));
+        res.json(err, 400);
+        break;
+      default:
+        logger.fatal("Reached unknown error handler: " + require('util').inspect(err.toString()));
+        res.send(500);
+        break;
+      }
+    }
+  });
 });
 
-app.get('/', function(req, res){
+app.get('/', function(req, res, next){
   res.json({
     name: pkgInfo.name,
     version: pkgInfo.version
   });
 });
 
-app.get('/jobs/', function(req, res){
+app.get('/jobs/', function(req, res, next){
   updater.getStatsHistory({}, function(err, history){
     res.json(history);
   });
 });
 
-app.post('/jobs/', function(req, res){
+app.post('/jobs/', function(req, res, next){
   var queued = updater.updateAll(function(err, tasks){
     // nothing to do;
   });
   if( queued ){
     updater.getCurrentStats(function(err, stats){
-      res.json(stats);
+      err ? next(err) : res.json(stats);
     });
   }else{
     res.json({
@@ -39,14 +63,14 @@ app.post('/jobs/', function(req, res){
   }
 });
 
-app.get('/channels/', function(req, res){
+app.get('/channels/', function(req, res, next){
   for(var cid in chconf){
     chconf[cid].cid = cid;
   }
   res.json(chconf);
 });
 
-app.get('/programs/:cid', function(req, res){
+app.get('/programs/:cid', function(req, res, next){
   var cid     = req.params.cid;
   var t       = new Date();
   var options = {};  // TODO: more detailed filter (such as time)
@@ -55,13 +79,33 @@ app.get('/programs/:cid', function(req, res){
   });
 });
 
-app.get('/programs/:cid/:yyyy/:mm/:dd', function(req, res){
+app.get('/programs/:cid/:yyyy/:mm/:dd', function(req, res, next){
   var cid = req.params.cid;
   var t   = new Date(req.params.yyyy, parseInt(req.params.mm) -1, req.params.dd);
   var options = {};  // TODO: more detailed filter (such as time)
 
   query.getProgramListByDate(cid, t, function(err, list){
     err ? next(err) : res.json(list);
+  });
+});
+
+
+app.get('/timers/', function(req, res, next){
+  var options = {};
+  query.getTimerList(options, function(err, list){
+    err ? next(err) : res.json(list);
+  });
+});
+
+app.post('/timers/', function(req, res, next){
+  var t = {
+    cid: req.body.cid,
+    pid: req.body.pid
+  };
+  var klass = timer.ProgramTimer;
+
+  (new klass(t)).save(function(err, result){
+    err ? next(err) : res.json(result);
   });
 });
 
